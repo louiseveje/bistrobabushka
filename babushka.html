@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Bistro Babushka</title>
     <style>
       @media (min-width: 600px) {
         #beholder {
@@ -38,6 +38,24 @@
       .valgt {
         background-color: darkturquoise;
       }
+
+      #popup {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: #000000aa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+      }
+
+      #popup article {
+        width: 80%;
+        background-color: orange;
+      }
     </style>
   </head>
   <body>
@@ -57,10 +75,18 @@
         <img src="" alt="" />
         <h2 class="navn"></h2>
         <p class="kort_beskrivelse"></p>
-        <!-- <p class="lang_beskrivelse"></p> -->
         <p class="pris"></p>
       </article>
     </template>
+
+    <div id="popup">
+      <article>
+        <img src="" alt="" />
+        <h2></h2>
+        <p></p>
+        <p></p>
+      </article>
+    </div>
 
     <script>
       const header = document.querySelector("h1");
@@ -108,9 +134,9 @@
           if (filter == ret.kategori || filter == "alle") {
             const klon = skabelon.cloneNode(true);
             klon.querySelector("img").src = "billeder/" + ret.billednavn + "-md.jpg";
+            klon.querySelector("article").addEventListener("click", () => visRetter(ret));
             klon.querySelector(".navn").textContent = ret.navn;
             klon.querySelector(".kort_beskrivelse").textContent = ret.kortbeskrivelse;
-            // klon.querySelector(".lang_beskrivelse").textContent = ret.langbeskrivelse;
             klon.querySelector(".pris").textContent = ret.pris + " kr.";
 
             holder.appendChild(klon);
@@ -118,6 +144,17 @@
         });
       }
 
+      document.querySelector("#popup").addEventListener("click", () => (popup.style.display = "none"));
+
+      function visRetter(dataRetter) {
+        console.log(dataRetter);
+        const popup = document.querySelector("#popup");
+        popup.style.display = "flex";
+        popup.querySelector("img").src = "billeder/" + dataRetter.billednavn + "-md.jpg";
+        popup.querySelector("h2").textContent = dataRetter.navn;
+        popup.querySelector("p").textContent = dataRetter.langbeskrivelse;
+        popup.querySelector("p+p").textContent = dataRetter.pris + " kr.";
+      }
       hentdata();
     </script>
   </body>
