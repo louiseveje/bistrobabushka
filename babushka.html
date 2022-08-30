@@ -8,10 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      #beholder {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1.2em;
+      @media (min-width: 600px) {
+        #beholder {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.2em;
+        }
+      }
+
+      @media (min-width: 900px) {
+        #beholder {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.2em;
+        }
       }
 
       article {
@@ -24,10 +34,22 @@
         aspect-ratio: 1/1;
         object-fit: contain;
       }
+
+      .valgt {
+        background-color: darkturquoise;
+      }
     </style>
   </head>
   <body>
-    <h1>Menu</h1>
+    <h1>Alle</h1>
+    <nav>
+      <button data-kategori="alle" class="valgt">Alle</button>
+      <button data-kategori="forretter">Forretter</button>
+      <button data-kategori="hovedretter">Hovedretter</button>
+      <button data-kategori="desserter">Desserter</button>
+      <button data-kategori="drikkevarer">Drikkevarer</button>
+    </nav>
+
     <main id="beholder"></main>
 
     <template>
@@ -35,12 +57,14 @@
         <img src="" alt="" />
         <h2 class="navn"></h2>
         <p class="kort_beskrivelse"></p>
-        <p class="lang_beskrivelse"></p>
+        <!-- <p class="lang_beskrivelse"></p> -->
         <p class="pris"></p>
       </article>
     </template>
 
     <script>
+      const header = document.querySelector("h1");
+
       const endpoint = "https://babushka-dd8a.restdb.io/rest/menu";
       const mereinfo = {
         headers: {
@@ -48,29 +72,49 @@
         },
       };
 
-      async function hentdata() {
-        const response = await fetch(endpoint, mereinfo);
-        const json = await response.json();
-        console.log(json);
+      document.addEventListener("DOMContentLoaded", start);
 
-        vis(json);
+      let retter;
+      let filter = "alle";
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) => knap.addEventListener("click", filtrerKategorier));
+
+        hentdata();
       }
 
-      function vis(retter) {
-        console.log(retter);
+      function filtrerKategorier() {
+        filter = this.dataset.kategori;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+        visKategorier();
+        header.textContent = this.textContent;
+      }
 
+      async function hentdata() {
+        const response = await fetch(endpoint, mereinfo);
+        retter = await response.json();
+
+        visKategorier();
+      }
+
+      function visKategorier() {
         const holder = document.querySelector("#beholder");
         const skabelon = document.querySelector("template").content;
+        holder.textContent = "";
 
         retter.forEach((ret) => {
-          const klon = skabelon.cloneNode(true);
-          klon.querySelector("img").src = "billeder/" + ret.billede;
-          klon.querySelector(".navn").textContent = ret.navn;
-          klon.querySelector(".kort_beskrivelse").textContent = ret.kortbeskrivelse;
-          klon.querySelector(".lang_beskrivelse").textContent = ret.langbeskrivelse;
-          klon.querySelector(".pris").textContent = ret.pris + " kr.";
+          if (filter == ret.kategori || filter == "alle") {
+            const klon = skabelon.cloneNode(true);
+            klon.querySelector("img").src = "billeder/" + ret.billednavn + "-md.jpg";
+            klon.querySelector(".navn").textContent = ret.navn;
+            klon.querySelector(".kort_beskrivelse").textContent = ret.kortbeskrivelse;
+            // klon.querySelector(".lang_beskrivelse").textContent = ret.langbeskrivelse;
+            klon.querySelector(".pris").textContent = ret.pris + " kr.";
 
-          beholder.appendChild(klon);
+            holder.appendChild(klon);
+          }
         });
       }
 
