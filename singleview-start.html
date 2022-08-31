@@ -71,9 +71,9 @@
         margin-bottom: 30px;
       }
 
-      #luk button {
-        font-size: 1rem;
-      }
+            #luk button {
+              font-size: 1rem;
+            }
 
     </style>
   </head>
@@ -100,7 +100,7 @@
 
     <section id="popup">
       <article>
-        <div id="luk">&#x2715</div>
+        <div id="luk"><button>&#x2715</button></div>
         <img src="" alt="" />
         <h2></h2>
         <p></p>
@@ -164,7 +164,7 @@
         });
       }
 
-      document.querySelector("#luk").addEventListener("click", () => (popup.style.display = "none"));
+      document.querySelector("#popup").addEventListener("click", () => (popup.style.display = "none"));
 
       function visRetter(dataRetter) {
         console.log(dataRetter);
