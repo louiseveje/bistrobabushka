@@ -8,7 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bistro Babushka</title>
     <style>
-      @media (min-width: 600px) {
+      #beholder {
+        margin: 30px;    
+      }
+
+     @media (min-width: 600px) {
         #beholder {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -29,6 +33,12 @@
         border: 1px orange solid;
         padding: 1em;
         cursor: pointer;
+      }
+
+      @media (max-width: 600px) {
+        article {
+        margin-bottom: 20px;
+        }
       }
 
       img {

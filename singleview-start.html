@@ -54,12 +54,6 @@
         display: none;
       }
 
-      #popup article {
-        width: 40%;
-        background-color: orange;
-        padding-top: 10px;
-      }
-
       button {
         border: none;
         padding: 7px;
@@ -70,11 +64,6 @@
       nav {
         margin-bottom: 30px;
       }
-
-            #luk button {
-              font-size: 1rem;
-            }
-
     </style>
   </head>
   <body>
@@ -97,16 +86,6 @@
         <p class="pris"></p>
       </article>
     </template>
-
-    <section id="popup">
-      <article>
-        <div id="luk"><button>&#x2715</button></div>
-        <img src="" alt="" />
-        <h2></h2>
-        <p></p>
-        <p></p>
-      </article>
-    </section>
 
     <script>
       const header = document.querySelector("h1");
@@ -164,16 +143,8 @@
         });
       }
 
-      document.querySelector("#popup").addEventListener("click", () => (popup.style.display = "none"));
-
-      function visRetter(dataRetter) {
-        console.log(dataRetter);
-        const popup = document.querySelector("#popup");
-        popup.style.display = "flex";
-        popup.querySelector("img").src = "billeder/" + dataRetter.billednavn + "-md.jpg";
-        popup.querySelector("h2").textContent = dataRetter.navn;
-        popup.querySelector("p").textContent = dataRetter.langbeskrivelse;
-        popup.querySelector("p+p").textContent = dataRetter.pris + " kr.";
+      function visRetter(ret) {
+        window.location.href = `singleview.html?id=${ret._id}`;
       }
       hentdata();
     </script>
