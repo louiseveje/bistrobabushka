@@ -6,13 +6,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="svg/faviconbb.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni&display=swap" rel="stylesheet" />
     <title>Bistro Babushka</title>
     <style>
+      #beholder {
+        margin: 30px;
+      }
+
+      h2 {
+        margin-inline: 30px;
+      }
+
+      nav {
+        margin-bottom: 30px;
+        margin-inline: 30px;
+      }
+
       @media (min-width: 600px) {
         #beholder {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: 1.2em;
+        }
+
+        h2 {
+          margin-inline: 30px;
         }
       }
 
@@ -23,12 +44,27 @@
           gap: 1.2em;
           margin-inline: 50px;
         }
+
+        h2 {
+          margin-inline: 46px;
+        }
+
+        nav {
+          margin-bottom: 30px;
+          margin-inline: 46px;
+        }
       }
 
       article {
-        border: 1px orange solid;
         padding: 1em;
         cursor: pointer;
+        background-color: white;
+      }
+
+      @media (max-width: 600px) {
+        article {
+          margin-bottom: 20px;
+        }
       }
 
       img {
@@ -38,36 +74,47 @@
       }
 
       .valgt {
-        background-color: orange;
-      }
-
-      #popup {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background-color: #000000aa;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        display: none;
+        background-color: rgb(254, 81, 0);
       }
 
       button {
         border: none;
         padding: 7px;
-        background-color: rgba(255, 166, 0, 0.488);
+        background-color: white;
         cursor: pointer;
       }
 
-      nav {
-        margin-bottom: 30px;
+      #luk button {
+        font-size: 1rem;
+      }
+
+      footer {
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Libre Bodoni;
+      }
+
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        font-family: Libre Bodoni;
+        font-size: 1.3rem;
+      }
+
+      body {
+        background-color: rgb(240, 197, 116);
       }
     </style>
   </head>
   <body>
-    <h1>Alle</h1>
+    <header>
+      <h1>Bistro Babushka</h1>
+    </header>
     <nav>
       <button data-kategori="alle" class="valgt">Alle</button>
       <button data-kategori="forretter">Forretter</button>
@@ -76,16 +123,20 @@
       <button data-kategori="drikkevarer">Drikkevarer</button>
     </nav>
 
+    <h2>Alle retter</h2>
+
     <main id="beholder"></main>
 
     <template>
       <article>
         <img src="" alt="" />
-        <h2 class="navn"></h2>
+        <h3 class="navn"></h3>
         <p class="kort_beskrivelse"></p>
         <p class="pris"></p>
       </article>
     </template>
+
+    <footer>©bistrobabushka | Design by Louise Veje</footer>
 
     <script>
       const header = document.querySelector("h1");

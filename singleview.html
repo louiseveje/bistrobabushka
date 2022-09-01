@@ -6,16 +6,95 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="svg/faviconbb.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni&display=swap" rel="stylesheet" />
     <title>Seperat singleview</title>
+    <style>
+      body {
+        background-color: rgb(240, 197, 116);
+      }
+
+      img {
+        max-width: 70%;
+        object-fit: contain;
+      }
+
+      article {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      div {
+        margin: 30px;
+      }
+
+      @media (min-width: 700px) {
+        img {
+          max-width: 40%;
+          object-fit: contain;
+          padding-left: 30px;
+          padding-bottom: 20px;
+        }
+
+        article {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-wrap: nowrap;
+        }
+
+        div {
+          padding-inline: 30px;
+        }
+      }
+
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        font-family: Libre Bodoni;
+        font-size: 1.3rem;
+      }
+
+      footer {
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Libre Bodoni;
+      }
+
+      button {
+        border: none;
+        padding: 7px;
+        background-color: white;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
+    <header>
+      <h1>Bistro Babushka</h1>
+    </header>
+
     <article>
       <img src="" alt="" />
-      <h2></h2>
-      <p></p>
-      <p></p>
-      <button>Tilbage til menu galleri</button>
+      <div>
+        <h2></h2>
+        <p></p>
+        <p></p>
+        <p></p>
+        <button>Tilbage til menu galleri</button>
+      </div>
     </article>
+
+    <footer>©bistrobabushka | Design by Louise Veje</footer>
 
     <script>
       //søg efter URL parametre
@@ -46,7 +125,8 @@
         single.querySelector("img").src = "billeder/" + retter.billednavn + "-md.jpg";
         single.querySelector("h2").textContent = retter.navn;
         single.querySelector("p").textContent = retter.langbeskrivelse;
-        single.querySelector("p+p").textContent = retter.pris + " kr.";
+        single.querySelector("p+p").textContent = "Oprindelsesregion: " + retter.oprindelsesregion;
+        single.querySelector("p+p+p").textContent = "Pris: " + retter.pris + " kr.";
         single.querySelector("button").addEventListener("click", tilbageTilMenuGalleri);
       }
 
